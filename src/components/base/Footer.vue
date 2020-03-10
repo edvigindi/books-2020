@@ -2,11 +2,8 @@
   footer
     div контакты
     div
-      
 </template>
 <script>
-import firebase from 'firebase'
-import store from '../../store'
 export default {
   name: 'Footer',
   data () {
@@ -16,5 +13,4 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
-  
 </style>

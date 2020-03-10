@@ -1,14 +1,13 @@
 <template lang="pug">
     vs-navbar.nabarx(
       v-model='activeItem'
-      type="shadow"
+      type="border"
       color="#aba87b"
       text-color="#ffffff"
-      active-text-color="#394a1d"
       )
       div(slot='title')
         vs-navbar-title
-          | домашняя библиотека
+          img.logoImg(src='../../assets/logo.png')
       vs-navbar-item.item-main(
         v-for="(link, index) in linkMenu"
         :key="link.title"
@@ -103,7 +102,22 @@ export default {
 <style scoped lang="stylus">
   .is-active-item
     font-weight bold
-  .nabarx
-    color white
-    height 100px
+    font-family Helvetica, sans-serif
+    border-bottom solid 1px white
+  .navbar-link
+    color #ffffff
+    padding 10px 15px
+    text-transform uppercase
+    font-family Helvetica, sans-serif
+    font-weight lighter
+  .navbar-link:hover
+    transition .2s
+    border-bottom solid 1px white
+    background-color #b8b69a
+  .vs-navbar--title
+    color #ffffff
+    display flex
+  .logoImg
+    height 80px
+    margin 10px
 </style>

@@ -2,18 +2,18 @@
   div
     Header
     router-view
-
 </template>
 
 <script>
 // import firebase from 'firebase'
 // import store from './store'
 import Header from '@/components/base/Header'
-import Footer from '@/components/base/Footer'
+// import Footer from '@/components/base/Footer'
 export default {
   name: 'App',
   components: {
     Header
+    // Footer
   },
   data () {
     return {}
