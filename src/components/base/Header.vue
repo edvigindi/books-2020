@@ -33,7 +33,7 @@
               vs-dropdown-item(disabled='')
                 |{{userData.email}}
               vs-dropdown-item(divider='')
-                span.navbar-link(@click='signOut') SignOut
+                span.navbar-link.signOut(@click='signOut') выход
 </template>
 <script>
 import firebase from 'firebase'
@@ -120,4 +120,8 @@ export default {
   .logoImg
     height 80px
     margin 10px
+  .navbar-link.signOut
+    background none
+    color #aba87b !important
+    font-size .8em
 </style>

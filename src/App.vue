@@ -2,18 +2,19 @@
   div
     Header
     router-view
+    Footer
 </template>
 
 <script>
 // import firebase from 'firebase'
 // import store from './store'
 import Header from '@/components/base/Header'
-// import Footer from '@/components/base/Footer'
+import Footer from '@/components/base/Footer'
 export default {
   name: 'App',
   components: {
-    Header
-    // Footer
+    Header,
+    Footer
   },
   data () {
     return {}
@@ -50,6 +51,6 @@ export default {
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
   text-align center
-  color #2c3e50
+  color #394a1d
   margin-top 60px
 </style>

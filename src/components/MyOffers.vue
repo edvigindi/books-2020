@@ -1,15 +1,14 @@
 <template lang="pug">
-  div
-    vs-prompt(title='введите данные о книге' accept-text='создать' cancel-text='отменить' button-accept='border' @cancel='cancel' @accept='acceptAlert' @close='close' :is-valid="validTitle && validType && validAuthor && validDesription && validCountry && validCity" :active.sync='activeAddBookPrompt')
+  #mainDiv
+    vs-prompt(color='rgb(57, 74,29)' title='введите данные о книге' accept-text='создать' cancel-text='отменить' button-accept='border' @cancel='cancel' @accept='acceptAlert' @close='close' :is-valid="validTitle && validType && validAuthor && validDesription && validCountry && validCity" :active.sync='activeAddBookPrompt')
       div
-        | Описание книги
-        vs-input(placeholder='название книги' v-model='currentBook.title')
-        vs-select(label='type' v-model='currentBook.type')
-          vs-select-item(:key='index' :value='typeOption.value' :text='typeOption.text' v-for='typeOption, index in typeOptions')
-        vs-input(placeholder='автор' v-model='currentBook.author')
-        vs-input(placeholder='страна' v-model='currentBook.country')
-        vs-input(placeholder='город' :disabled='!validCountry' v-model='currentBook.city')
-        vs-textarea(label='описание книги' v-model='currentBook.description' counter='100' :counter-danger.sync='currentBook.counterDanger')
+        vs-input.addForm(placeholder='название книги' v-model='currentBook.title' color='rgb(57, 74,29)' icon='edit_attributes' size='large')
+        vs-select.addForm(color='HEX:#394a1d' label='тип' v-model='currentBook.type')
+          vs-select-item(:key='index' :value='typeOption.value' :text='typeOption.text' v-for='typeOption, index in typeOptions' color='rgb(57, 74,29)')
+        vs-input.addForm(placeholder='автор' v-model='currentBook.author' color='rgb(57, 74,29)' icon='supervisor_account' size='large')
+        vs-input.addForm(placeholder='страна' v-model='currentBook.country' color='rgb(57, 74,29)' icon='edit_location' size='large')
+        vs-input.addForm(placeholder='город' :disabled='!validCountry' v-model='currentBook.city' color='rgb(57, 74,29)' icon='streetview' size='large')
+        vs-textarea.addForm(label='описание книги' v-model='currentBook.description' counter='100' :counter-danger.sync='currentBook.counterDanger' color='rgb(57, 74,29)')
         .preview
           vue-cropper(ref='cropper' :aspect-ratio='1' :viewMode='3' :src='selectedImage' preview='.preview')
         image-uploader(:debug='1' :maxWidth='300' :maxHeight='300' :quality='0.9' :autoRotate='true' :preview='false' :className="['fileinput', { 'fileinput--loaded' : selectedImage }]" :capture='false' accept='image/*' doNotResize="['gif', 'svg']" @input='setImage' @onUpload='startImageResize' @onComplete='endImageResize')
@@ -20,14 +19,14 @@
             span.upload-caption {{ selectedImage ? &apos;Изменить&apos; : &apos;Выбрать&apos; }}
         // .centerx
           vs-upload(action='https://jsonplaceholder.typicode.com/posts/' @on-success='successUpload' limit=1 v-model='currentBook.image')
-        vs-alert(:active='!validTitle || !validType || !validAuthor || !validCountry || !validCity' color='danger' icon='new_releases')
+        vs-alert(:active='!validTitle || !validType || !validAuthor || !validCountry || !validCity' color='rgb(57, 74,29)' icon='new_releases')
           | Все поля должны быть заполнены
     vs-row
       vs-col(vs-type='flex' vs-justify='center' vs-align='left' vs-w='6')
-        h1 Мои предложения
+        vs-divider(color="#394a1d") МОИ ПРЕДЛОЖЕНИЯ
       vs-col(vs-type='flex' vs-justify='center' vs-align='right' vs-w='6')
         vs-tooltip(text='Add book')
-          vs-button(icon='add' size='medium' color='dark' type='flat' @click='activeAddBookPrompt = true')
+          vs-button(icon='add' size='medium' color='rgb(57, 74,29)' type='flat' @click='activeAddBookPrompt = true')
     vs-row.infinite-wrapper(vs-justify='center')
       vs-col.cardsCol(:key='index' v-for='book,index in books' vs-type='flex' vs-justify='space-between' vs-lg='2' vs-sm='4' vs-xs='12')
         template
@@ -48,12 +47,12 @@
                 div.cardFooter(slot='footer')
                   vs-row
                     vs-col(vs-w='6' vs-align='flex-start')
-                      vs-button(v-if='currentBook.type===1' color='dark' type='flat' icon='pan_tool' disabled)
-                      vs-button(v-else color='dark' type='flat' icon='av_timer' disabled)
+                      vs-button(v-if='currentBook.type===1' color='rgb(57, 74,29)' type='flat' icon='pan_tool' disabled)
+                      vs-button(v-else color='rgb(57, 74,29)' type='flat' icon='av_timer' disabled)
                     vs-col(vs-w='3' vs-align='flex-end')
-                      vs-button(color='dark' type='flat' icon='edit')
+                      vs-button(color='rgb(57, 74,29)' type='flat' icon='edit')
                     vs-col(vs-w='3' vs-align='flex-end')
-                      vs-button(color='dark' type='flat' icon='delete_sweep')
+                      vs-button(color='rgb(57, 74,29)' type='flat' icon='delete_sweep')
       infinite-loading(@infinite='myBooksInfiniteHandler' force-use-infinite-wrapper='.infinite-wrapper')
 </template>
 
@@ -146,9 +145,9 @@ export default {
     },
     close () {
       this.$vs.notify({
-        color: 'danger',
-        title: 'Closed',
-        text: 'You close a dialog!'
+        color: 'rgb(171, 168, 123)',
+        title: 'отменено',
+        text: 'вы закрыли окно ввода'
       })
     },
     cancel () {
@@ -199,38 +198,58 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-    div[slot="media"]
-      height 300px
-    img
-      max-height 300px
-      max-width 100%
-    .preview
-      max-height 200px
-    input[type=file]
-      width 0px
-      height 0px
-      position absolute
-      z-index -1
-      overflow hidden
-      opacity 0
-    .infinite-wrapper
-      overflow scroll
-      height 800px
-    .cardsCol
-      margin 20px
-    .cardx
-      height 370px
-      padding-bottom 15px
-      display grid
-    .cardFooter
-      align-self end
-    .bookDescription
-      margin auto
-      height 30px
-      width 135px
-      word-wrap break-word
-      overflow hidden
-    // .vs-tooltip
-      // z-index 20000
-      // display block
+  #mainDiv
+    background url('../assets/book-bg-2.jpg') center center fixed
+    -webkit-background-size: cover
+    -moz-background-size: cover
+    -o-background-size: cover
+    background-size: cover
+    position: fixed
+    width 100%
+    height 100%
+    color rgb(57, 74,29)
+    font-family Helvetica, sans-serif
+  div[slot="media"]
+    height 300px
+  img
+    max-height 300px
+    max-width 100%
+  h1
+    text-transform uppercase
+  .preview
+    max-height 200px
+  input[type=file]
+    width 0px
+    height 0px
+    position absolute
+    z-index -1
+    overflow hidden
+    opacity 0
+  .infinite-wrapper
+    overflow scroll
+    height 800px
+  .cardsCol
+    margin 20px
+  .cardx
+    height 370px
+    padding-bottom 15px
+    display grid
+  .cardFooter
+    align-self end
+  .bookDescription
+    margin auto
+    height 30px
+    width 135px
+    word-wrap break-word
+    overflow hidden
+  .addForm
+    width 80%
+    margin auto
+    margin-bottom 5px
+    color rgb(57, 74,29)
+  .vs-textarea--count
+    color 'rgb(57, 74,29)'
+  // .vs-tooltip
+    // z-index 20000
+    // display block
 </style>
